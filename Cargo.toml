@@ -1,0 +1,6 @@
+[package]
+name = "readfile1-rs"
+version = "0.1.0"
+authors = ["Dan Mack <mack@macktronics.com>"]
+
+[dependencies]

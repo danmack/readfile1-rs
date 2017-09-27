@@ -1,12 +1,45 @@
 # readfile1-rs
 
 This is just an example of a rust program that uses the standard IO
-module to read a file into a vector data structure.  It demonstrates
-the complexity to properly handle errors.
+module to read a file into a vector data structure, demonstrating the
+complexity (compared to C) of handling error conditions.
 
 Once the file is read, the program prints out how many bytes were
 read and a classic hex dump of the file's bytes with the printable
-ASCII representation on the right.
+ASCII representation on the right.  Example:
+
+```shell
+reading file name: ../sierpinski-rs/img/sierpinski.png.. 2229 bytes read.
+
+simple hexdump (dot <.> denotes unprintable char)
+
+87654321 00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff  |0123456789abcdef|
+-------- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  |----------------|
+00000000 89 50 4e 47 0d 0a 1a 0a 00 00 00 0d 49 48 44 52  |.PNG........IHDR|
+00000010 00 00 00 c8 00 00 00 96 08 00 00 00 00 be b7 98  |................|
+00000020 c5 00 00 08 7c 49 44 41 54 78 01 ed 5c 5b 96 a3  |....|IDATx..\[..|
+00000030 3a 0c 64 f6 bf 68 a6 e4 f2 43 22 56 b0 c0 4e 27  |:.d..h...C"V..N'|
+00000040 dd b9 87 08 bd 55 65 9b 90 9e 8f fb 6f db b7 d5  |.....Ue.....o...|
+00000050 ff bd 62 c6 f6 ef 15 3c b6 57 ac d6 97 c8 e8 81  |..b....<.W......|
+ ...
+00000890 a2 46 2f 24 cd 26 e1 e2 95 5d 8d 48 76 7c ea ed  |.F/$.&...].Hv|..|
+000008a0 3f cd de 5b 3f c2 2c 40 9c 00 00 00 00 49 45 4e  |?..[?.,@.....IEN|
+000008b0 44 ae 42 60 82                                   |D.B`.|
+
+hexdump of 2229 (0x8b5) bytes completed.
+
+```
+
+This demonstrates the use of std:env:args(), std::fs::File::open and
+how to:
+
+* handle a function which returns Option type like std::env::args().nth()
+  * Option types return Some() / None
+* handle a function which returns a Result type like fs::File::open()
+  * Result types return Ok() / Err()
+* use low level file IO from rust
+* populate a buffer safely leveraging the vector (Vec) built in type
+* how to use match with error handling
 
 You can run the program using cargo like this:
 
@@ -61,20 +94,8 @@ simple hexdump (dot <.> denotes unprintable char)
 hexdump of 112 bytes completed.
 ```
 
-Pretty neat, huh?
-
-This demonstration shows how to:
-* handle a function which returns Option type like std::env::args().nth()
-  * Option types return Some() / None
-* handle a function which returns a Result type like fs::File::open()
-  * Result types return Ok() / Err()
-* use low level file IO from rust
-* populate a buffer safely leveraging the vector (Vec) built in type
-* how to use match with error handling
-
-Hope this is useful.  I think points out how syntactically complex
-rust can be to do some very simple things as compared to C and higher
-level languages.
+Hope this is useful.  Error handling in rust is more powerful but
+comes with a bit more complexity.
 
 This worked with rust version 1.20.
 

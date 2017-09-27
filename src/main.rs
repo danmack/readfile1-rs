@@ -42,12 +42,12 @@ fn main() {
         }
         print!("{:02x}", *x);
         if *x < 32 || *x > 125 {
-            chars[addr%16] = '.';
+            chars[addr % 16] = '.';
         } else {
-            chars[addr%16] = *x as char;
+            chars[addr % 16] = *x as char;
         }
         addr += 1;
-        if addr%16 == 0 {
+        if (addr % 16) == 0 {
             print!("  |");
             for y in &chars {
                 print!("{}", *y);
@@ -61,12 +61,12 @@ fn main() {
     // deal with padding out the last line
 
     if (addr % 16) > 0 {
-        let pad = 16-addr%16;
+        let pad = 16 - (addr %16);
         for _ in 0..pad {
             print!("   ");
         }
         print!(" |");
-        for z in 0..(addr%16) {
+        for z in 0..(addr % 16) {
             print!("{}", chars[z]);
         }
         println!("|");

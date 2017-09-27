@@ -41,7 +41,7 @@ fn main() {
             print!("{:08x} ", addr);
         }
         print!("{:02x}", *x);
-        if *x < 32 {
+        if *x < 32 || *x > 125 {
             chars[addr%16] = '.';
         } else {
             chars[addr%16] = *x as char;
@@ -71,7 +71,7 @@ fn main() {
         }
         println!("|");
     }
-    println!("\nhexdump of {} bytes completed.\n", addr);
+    println!("\nhexdump of {} (0x{:x}) bytes completed.\n", addr, addr);
 }
 
 fn print_header() {

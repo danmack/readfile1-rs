@@ -5,7 +5,8 @@ module to read a file into a vector data structure.  It demonstrates
 the complexity to properly handle errors.
 
 Once the file is read, the program prints out how many bytes were
-read and a basic hex dump of the file.
+read and a classic hex dump of the file's bytes with the printable
+ASCII representation on the right.
 
 You can run the program using cargo like this:
 
@@ -40,22 +41,29 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 file):
 
 ```shell
-$ cargo run Cargo.toml
+$ cargo run ./Cargo.toml
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-     Running `target/debug/readfile1-rs Cargo.toml`
-reading file name: Cargo.toml.. 112 bytes read.
-5B 70 61 63 6B 61 67 65 5D 0A 6E 61 6D 65 20 3D
-20 22 72 65 61 64 66 69 6C 65 31 2D 72 73 22 0A
-76 65 72 73 69 6F 6E 20 3D 20 22 30 2E 31 2E 30
-22 0A 61 75 74 68 6F 72 73 20 3D 20 5B 22 44 61
-6E 20 4D 61 63 6B 20 3C 6D 61 63 6B 40 6D 61 63
-6B 74 72 6F 6E 69 63 73 2E 63 6F 6D 3E 22 5D 0A
-0A 5B 64 65 70 65 6E 64 65 6E 63 69 65 73 5D 0A
+     Running `target/debug/readfile1-rs ./Cargo.toml`
+reading file name: ./Cargo.toml.. 112 bytes read.
+
+simple hexdump (dot <.> denotes unprintable char)
+
+87654321 00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff  |0123456789abcdef|
+-------- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  |----------------|
+00000000 5b 70 61 63 6b 61 67 65 5d 0a 6e 61 6d 65 20 3d  |[package].name =|
+00000010 20 22 72 65 61 64 66 69 6c 65 31 2d 72 73 22 0a  | "readfile1-rs".|
+00000020 76 65 72 73 69 6f 6e 20 3d 20 22 30 2e 31 2e 30  |version = "0.1.0|
+00000030 22 0a 61 75 74 68 6f 72 73 20 3d 20 5b 22 44 61  |".authors = ["Da|
+00000040 6e 20 4d 61 63 6b 20 3c 6d 61 63 6b 40 6d 61 63  |n Mack <mack@mac|
+00000050 6b 74 72 6f 6e 69 63 73 2e 63 6f 6d 3e 22 5d 0a  |ktronics.com>"].|
+00000060 0a 5b 64 65 70 65 6e 64 65 6e 63 69 65 73 5d 0a  |.[dependencies].|
+
+hexdump of 112 bytes completed.
 ```
 
 Pretty neat, huh?
 
-This demostration shows how to:
+This demonstration shows how to:
 * handle a function which returns Option type like std::env::args().nth()
   * Option types return Some() / None
 * handle a function which returns a Result type like fs::File::open()
@@ -64,7 +72,7 @@ This demostration shows how to:
 * populate a buffer safely leveraging the vector (Vec) built in type
 * how to use match with error handling
 
-Hope this is useful.  I think points out how syntaxtically complex
+Hope this is useful.  I think points out how syntactically complex
 rust can be to do some very simple things as compared to C and higher
 level languages.
 

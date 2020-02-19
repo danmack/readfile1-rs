@@ -75,7 +75,7 @@ fn main() {
 }
 
 fn print_header() {
-    println!("");
+    println!();
     println!("simple hexdump (dot <.> denotes unprintable char)\n");
     println!("87654321 00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff  |0123456789abcdef|");
     println!("-------- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  |----------------|");
